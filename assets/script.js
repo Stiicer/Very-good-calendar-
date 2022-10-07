@@ -1,24 +1,40 @@
 $("#date-function").text(moment().format("dddd, MMMM Do YYYY"));
-const timeBlockData= $("time-block");
-const save = $("saveBtn");
-const userSave;
+
+var userSave;
+
+var currentTime = moment().format("hA");
 
 JSON.parse(localStorage.getItem("info"));
 
-const saveDetail= [];
+var saveDetail= [i];
 
 if(JSON.parse(localStorage.getItem("info"))){
-
-   saveDetail = JSON.parse(localStorage.getItem("info"));
-
+for(var i=0;i<9;i++){
+    
+    $(".time-block").eq(i).text(JSON.parse(localStorage.getItem("info")));
+    
 }
-function saveText(){
+}
 
-    userSave = timeBlockData.textContent;
-    saveDetail.push(userSave);
+if(currentTime === $(".data-hour")){
+    $(".time-block").addClass("present");
+}
+
+if(currentTime > $(".data-hour")){
+    $(".time-block").addClass("past");
+}
+
+if(currentTime < $(".data-hour")){
+    $(".time-block").addClass("future");
+}
+
+$(".saveBtn").click(function(){
+    for(var i=0; i<9; i++){
+    saveDetail.push($(".time-block").eq(i).val());
+
     localStorage.setItem("info",JSON.stringify(saveDetail));
-    console.log(userSave);
-}
+    console.log(saveDetail);}
+
+});
 
 
-save.addEventListener("click",saveText);
