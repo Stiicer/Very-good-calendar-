@@ -4,37 +4,35 @@ var userSave;
 
 var currentTime = moment().format("hA");
 
-JSON.parse(localStorage.getItem("info"));
 
-var saveDetail= [i];
 
-if(JSON.parse(localStorage.getItem("info"))){
-for(var i=0;i<9;i++){
-    
-    $(".time-block").eq(i).text(JSON.parse(localStorage.getItem("info")));
-    
+
+for(i=9;i<18;i++){
+$(".time-"+i).text(localStorage.getItem(i));
+console.log($(".time-block").attr("id"));
 }
-}
+
+
 
 if(currentTime === $(".data-hour")){
     $(".time-block").addClass("present");
 }
 
 if(currentTime > $(".data-hour")){
-    $(".time-block").addClass("past");
-}
-
-if(currentTime < $(".data-hour")){
     $(".time-block").addClass("future");
 }
 
-$(".saveBtn").click(function(){
-    for(var i=0; i<9; i++){
-    saveDetail.push($(".time-block").eq(i).val());
+if(currentTime < $(".data-hour")){
+    $(".time-block").addClass("past");
+}
 
-    localStorage.setItem("info",JSON.stringify(saveDetail));
-    console.log(saveDetail);}
+$(".saveBtn").click(function(e){
+    
+  console.log(e.target.previousElementSibling.value);
+
+    localStorage.setItem($(this).attr("id"),e.target.previousElementSibling.value);
 
 });
+
 
 
